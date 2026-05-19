@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+  base: '/for_studio_ueji/',
   build: {
     rollupOptions: {
       input: {
@@ -9,6 +10,7 @@ export default defineConfig({
         propose: resolve(__dirname, 'propose.html'),
         shichigosan: resolve(__dirname, 'shichigosan.html'),
         profile: resolve(__dirname, 'profile.html'),
+        admin: resolve(__dirname, 'admin.html'),
       },
     },
   },

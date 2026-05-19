@@ -53,6 +53,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- Strategy Accordion ---
+  document.querySelectorAll('.strategy-accordion .accordion-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+
   // --- Fade In Animation ---
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {

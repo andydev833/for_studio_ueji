@@ -372,89 +372,13 @@
     </div>
   </section>
 
-  <!-- ===== Form Modal ===== -->
+  <!-- ===== Step Form Modal ===== -->
   <div class="form-overlay" id="profile-form">
-    <div class="form-modal">
+    <div class="form-modal" style="max-width:640px">
       <button class="form-close" onclick="closeForm('profile-form')">✕</button>
-      <h3 class="form-title">プロフィール撮影のご相談</h3>
-      <p class="body-text" style="margin-bottom:var(--space-md)">個人・企業いずれのご相談も承ります。</p>
-      <form id="profile-inquiry-form" onsubmit="event.preventDefault();">
-        <div class="form-group">
-          <label class="form-label">お名前 <span class="required">※必須</span></label>
-          <input type="text" class="form-input" placeholder="山田 太郎" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">メールアドレス <span class="required">※必須</span></label>
-          <input type="email" class="form-input" placeholder="example@email.com" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">電話番号</label>
-          <input type="tel" class="form-input" placeholder="090-1234-5678">
-        </div>
-        <div class="form-group">
-          <label class="form-label">個人/企業の区分 <span class="required">※必須</span></label>
-          <select class="form-select" required>
-            <option value="">選択してください</option>
-            <option>個人（経営者・事業主・フリーランス）</option>
-            <option>個人（その他）</option>
-            <option>企業・法人</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">利用目的</label>
-          <div class="form-checkbox-group">
-            <label class="form-checkbox-label"><input type="checkbox"><span>HP用</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>SNS用</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>名刺用</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>採用ページ</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>営業資料</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>登壇資料</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>婚活</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>その他</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">希望撮影時期</label>
-          <input type="text" class="form-input" placeholder="例：2025年7月頃">
-        </div>
-        <div class="form-group">
-          <label class="form-label">希望撮影場所</label>
-          <select class="form-select">
-            <option value="">選択してください</option>
-            <option>スタジオ</option>
-            <option>ロケーション（屋外）</option>
-            <option>出張撮影（オフィス等）</option>
-            <option>未定・相談したい</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">見せたい印象</label>
-          <div class="form-checkbox-group">
-            <label class="form-checkbox-label"><input type="checkbox"><span>信頼感</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>親しみやすさ</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>専門性</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>清潔感</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>誠実さ</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>活気・勢い</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">撮影人数</label>
-          <select class="form-select">
-            <option value="">選択してください</option>
-            <option>1名</option>
-            <option>2〜5名</option>
-            <option>6〜10名</option>
-            <option>11名以上</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">自由記入欄</label>
-          <textarea class="form-textarea" placeholder="ご要望やご質問があればお書きください"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary form-submit" data-track-cta="form-profile-submit">相談内容を送信する</button>
-        <p class="form-note">※ 送信後、2営業日以内にご連絡いたします。</p>
-      </form>
+      <h3 class="form-title">プロフィール撮影のご相談・ご予約</h3>
+      <p class="body-text" style="margin-bottom:var(--space-md);text-align:center">個人・企業いずれのご相談も承ります。</p>
+      <div id="profile-step-form"></div>
     </div>
   </div>
 
@@ -485,7 +409,6 @@
     </div>
   </footer>
 
-  <!-- ===== Fixed CTA (Mobile) ===== -->
   <div class="fixed-cta">
     <div class="btn-group">
       <button onclick="openForm('profile-form')" class="btn btn-primary" data-track-cta="fixed-profile-consult">撮影を相談する</button>
@@ -494,6 +417,150 @@
   </div>
 
   <script src="/js/common.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/calendar.js"></script>
+  <script src="/js/step-form.js"></script>
   <script src="/js/tracking.js" type="module"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cfgP = StudioConfig.profilePersonal;
+    const cfgC = StudioConfig.profileCorporate;
+    const H = StepFormHelpers;
+    let currentType = 'personal';
+
+    const steps = [
+      {
+        render(el, data) {
+          H.buildSelectionGrid(el, {
+            title: 'ご利用区分を選択してください',
+            items: [
+              { icon: '👤', label: '個人（経営者・事業主等）', value: 'personal' },
+              { icon: '🏢', label: '企業・法人', value: 'corporate' },
+              { icon: '💬', label: 'まずは相談', value: 'consult' },
+            ],
+            fieldName: 'clientType', formData: data
+          });
+        },
+        collect(data) { currentType = data.clientType === 'corporate' ? 'corporate' : 'personal'; },
+        validate(data) { if (!data.clientType) { alert('選択してください'); return false; } return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          if (currentType === 'corporate') {
+            H.buildSelectionGrid(el, {
+              title: '企業撮影の用途',
+              items: [
+                { icon: '👥', label: '社員プロフィール', value: 'staff' },
+                { icon: '🎯', label: '採用ブランディング', value: 'recruit' },
+                { icon: '📊', label: '営業資料・HP素材', value: 'sales' },
+                { icon: '👔', label: '代表・役員撮影', value: 'exec' },
+              ],
+              fieldName: 'purpose', formData: data
+            });
+          } else {
+            H.buildSelectionGrid(el, {
+              title: '利用目的（複数可）',
+              items: [
+                { icon: '🌐', label: 'HP・Web用', value: 'web' },
+                { icon: '📱', label: 'SNS用', value: 'sns' },
+                { icon: '🪪', label: '名刺用', value: 'card' },
+                { icon: '📄', label: '営業資料', value: 'biz' },
+                { icon: '💑', label: '婚活', value: 'dating' },
+              ],
+              fieldName: 'purpose', formData: data, multiple: true
+            });
+          }
+        },
+        collect(data) {}, validate(data) { return true; }, nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          if (currentType === 'corporate') {
+            const t = document.createElement('h3'); t.className = 'sf-step-title'; t.textContent = '撮影規模'; el.appendChild(t);
+            H.buildFormFields(el, [
+              { name: 'companyName', label: '会社名', required: true, placeholder: '株式会社○○' },
+              { name: 'headcount', label: '撮影人数', type: 'select', options: ['選択してください', '1〜5名', '6〜10名', '11〜20名', '21名以上'] },
+              { name: 'shootLocation', label: '撮影場所', type: 'select', options: ['選択してください', 'スタジオ', '御社オフィス', 'ロケーション', '未定'] },
+            ], data);
+          } else {
+            const t = document.createElement('h3'); t.className = 'sf-step-title'; t.textContent = '撮影日を選択'; el.appendChild(t);
+            const d = document.createElement('div'); el.appendChild(d);
+            new StudioCalendar(d, { mode: 'shooting', label: '撮影日を選ぶ', slotTimes: cfgP.slotTimes, closedDays: cfgP.closedDays, onSelect(s) { data.calendarSelections = s; } });
+          }
+        },
+        collect(data) {}, validate(data) { return true; }, nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          if (currentType === 'corporate') {
+            const t = document.createElement('h3'); t.className = 'sf-step-title'; t.textContent = '相談日を選択'; el.appendChild(t);
+            const d = document.createElement('div'); el.appendChild(d);
+            new StudioCalendar(d, { mode: 'consultation', label: '相談日を選ぶ', slotTimes: cfgC.slotTimes, closedDays: cfgC.closedDays, onSelect(s) { data.calendarSelections = s; } });
+          } else {
+            const t = document.createElement('h3'); t.className = 'sf-step-title'; t.textContent = 'ご連絡先'; el.appendChild(t);
+            H.buildFormFields(el, [
+              { name: 'name', label: 'お名前', required: true, placeholder: '山田 太郎' },
+              { name: 'phone', label: '電話番号', type: 'tel', placeholder: '090-1234-5678' },
+              { name: 'email', label: 'メールアドレス', type: 'email', required: true, placeholder: 'example@email.com' },
+              { name: 'impression', label: '見せたい印象', placeholder: '例：信頼感、親しみやすさ' },
+              { name: 'notes', label: '備考', type: 'textarea', placeholder: 'ご質問があればどうぞ' },
+            ], data);
+          }
+        },
+        collect(data) {},
+        validate(data) { if (currentType !== 'corporate' && (!data.name || !data.email)) { alert('名前とメールは必須です'); return false; } return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          if (currentType === 'corporate') {
+            const t = document.createElement('h3'); t.className = 'sf-step-title'; t.textContent = 'ご担当者情報'; el.appendChild(t);
+            H.buildFormFields(el, [
+              { name: 'name', label: 'ご担当者名', required: true, placeholder: '山田 太郎' },
+              { name: 'phone', label: '電話番号', type: 'tel', placeholder: '090-1234-5678' },
+              { name: 'email', label: 'メールアドレス', type: 'email', required: true, placeholder: 'example@email.com' },
+              { name: 'notes', label: '備考', type: 'textarea', placeholder: '撮影の目的や希望など' },
+            ], data);
+          } else {
+            const calStr = (data.calendarSelections || []).map(s => `${s.date} ${s.time}`).join(', ') || '未選択';
+            data._calendarDisplay = calStr;
+            H.buildConfirmScreen(el, data, {
+              clientType: '利用区分', purpose: '利用目的', _calendarDisplay: '撮影日',
+              name: 'お名前', phone: '電話番号', email: 'メールアドレス', impression: '印象', notes: '備考'
+            });
+          }
+        },
+        collect(data) {},
+        validate(data) { if (currentType === 'corporate' && (!data.name || !data.email)) { alert('名前とメールは必須です'); return false; } return true; },
+        nextLabel: currentType === 'corporate' ? '確認画面へ' : '送信する'
+      },
+      {
+        render(el, data) {
+          if (currentType === 'corporate') {
+            const calStr = (data.calendarSelections || []).map(s => `${s.date} ${s.time}`).join(', ') || '未選択';
+            data._calendarDisplay = calStr;
+            H.buildConfirmScreen(el, data, {
+              clientType: '利用区分', purpose: '用途', companyName: '会社名', headcount: '撮影人数',
+              shootLocation: '撮影場所', _calendarDisplay: '相談日',
+              name: 'ご担当者名', phone: '電話番号', email: 'メールアドレス', notes: '備考'
+            });
+          } else {
+            H.buildCompleteScreen(el, cfgP);
+          }
+        },
+        collect(data) {}, validate(data) { return true; },
+        nextLabel: '送信する', noBack: currentType !== 'corporate'
+      },
+      {
+        noBack: true,
+        render(el) { H.buildCompleteScreen(el, currentType === 'corporate' ? cfgC : cfgP); },
+        collect() {}, validate() { return true; }
+      }
+    ];
+
+    new StepForm('#profile-step-form', { steps, productName: 'プロフィール撮影' });
+  });
+  </script>
 </body>
 </html>

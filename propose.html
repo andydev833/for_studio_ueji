@@ -310,74 +310,13 @@
     </div>
   </section>
 
-  <!-- ===== Form Modal ===== -->
+  <!-- ===== Step Form Modal ===== -->
   <div class="form-overlay" id="propose-form">
-    <div class="form-modal">
+    <div class="form-modal" style="max-width:640px">
       <button class="form-close" onclick="closeForm('propose-form')">✕</button>
       <h3 class="form-title">プロポーズ 無料相談</h3>
-      <p class="body-text" style="margin-bottom:var(--space-md)">まずはお気軽にご相談ください。内容は秘密厳守いたします。</p>
-      <form id="propose-inquiry-form" onsubmit="event.preventDefault();">
-        <div class="form-group">
-          <label class="form-label">お名前 <span class="required">※必須</span></label>
-          <input type="text" class="form-input" placeholder="山田 太郎" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">メールアドレス <span class="required">※必須</span></label>
-          <input type="email" class="form-input" placeholder="example@email.com" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">電話番号</label>
-          <input type="tel" class="form-input" placeholder="090-1234-5678">
-        </div>
-        <div class="form-group">
-          <label class="form-label">希望時期</label>
-          <input type="text" class="form-input" placeholder="例：2025年12月頃">
-        </div>
-        <div class="form-group">
-          <label class="form-label">希望エリア</label>
-          <input type="text" class="form-input" placeholder="例：奈良、大阪、関西エリア">
-        </div>
-        <div class="form-group">
-          <label class="form-label">相談したい内容</label>
-          <div class="form-checkbox-group">
-            <label class="form-checkbox-label"><input type="checkbox"><span>場所選び</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>演出相談</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>プレゼント</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>写真撮影</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>動画撮影</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>花束手配</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>アルバム</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">予算感</label>
-          <select class="form-select">
-            <option value="">選択してください</option>
-            <option>〜5万円</option>
-            <option>5万〜10万円</option>
-            <option>10万〜20万円</option>
-            <option>20万〜30万円</option>
-            <option>30万円以上</option>
-            <option>未定</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">相手にバレない連絡方法</label>
-          <select class="form-select">
-            <option value="">選択してください</option>
-            <option>メール</option>
-            <option>電話</option>
-            <option>LINE</option>
-            <option>どの方法でも可</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">自由記入欄</label>
-          <textarea class="form-textarea" placeholder="ご質問やご要望があればお書きください"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary form-submit" data-track-cta="form-propose-submit">相談内容を送信する</button>
-        <p class="form-note">※ 送信後、2営業日以内にご連絡いたします。</p>
-      </form>
+      <p class="body-text" style="margin-bottom:var(--space-md);text-align:center">まずはお気軽にご相談ください。内容は秘密厳守いたします。</p>
+      <div id="propose-step-form"></div>
     </div>
   </div>
 
@@ -417,6 +356,152 @@
   </div>
 
   <script src="/js/common.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/calendar.js"></script>
+  <script src="/js/step-form.js"></script>
   <script src="/js/tracking.js" type="module"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cfg = StudioConfig.propose;
+    const H = StepFormHelpers;
+
+    const steps = [
+      {
+        render(el, data) {
+          H.buildSelectionGrid(el, {
+            title: '相談方法を選択してください',
+            items: [
+              { icon: '💬', label: 'LINEで気軽に相談する', value: 'line' },
+              { icon: '💻', label: 'オンライン相談を予約する', value: 'online' },
+              { icon: '🏠', label: '店舗/対面相談を予約する', value: 'inperson' },
+              { icon: '✉️', label: 'まずはフォームで問い合わせる', value: 'form' },
+            ],
+            fieldName: 'method', formData: data
+          });
+        },
+        collect(data) {},
+        validate(data) {
+          if (!data.method) { alert('相談方法を選択してください'); return false; }
+          if (data.method === 'line') { window.open(cfg.lineUrl, '_blank'); }
+          return true;
+        },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          H.buildSelectionGrid(el, {
+            title: '相談内容を選択してください（複数可）',
+            items: [
+              { icon: '💍', label: 'プロポーズ全体を相談したい', value: 'all' },
+              { icon: '📍', label: '場所選びを相談したい', value: 'location' },
+              { icon: '💐', label: '花束・アクセサリーを相談したい', value: 'gift' },
+              { icon: '📸', label: '写真撮影をお願いしたい', value: 'photo' },
+              { icon: '🎬', label: '動画撮影をお願いしたい', value: 'video' },
+              { icon: '✨', label: 'サプライズ演出を相談したい', value: 'surprise' },
+              { icon: '🤔', label: 'まだ何も決まっていないので整理したい', value: 'undecided' },
+            ],
+            fieldName: 'content', formData: data, multiple: true
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = '希望時期を教えてください';
+          el.appendChild(title);
+          H.buildFormFields(el, [
+            { name: 'timing', label: 'プロポーズ予定時期', placeholder: '例：2025年12月頃', required: true },
+            { name: 'area', label: '希望エリア', placeholder: '例：奈良、大阪、関西エリア' },
+            { name: 'preferredDay', label: '希望曜日/時間帯', placeholder: '例：土日の午後' },
+          ], data);
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '日程を選ぶ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = '初回相談の日程を選択';
+          el.appendChild(title);
+          const note = document.createElement('p');
+          note.className = 'body-text';
+          note.style.textAlign = 'center';
+          note.style.marginBottom = 'var(--space-md)';
+          note.textContent = 'ここで選ぶのは「撮影日」ではなく「初回相談日」です。';
+          el.appendChild(note);
+          const calDiv = document.createElement('div');
+          calDiv.id = 'propose-calendar';
+          el.appendChild(calDiv);
+          new StudioCalendar(calDiv, {
+            mode: cfg.calendarMode,
+            label: cfg.calendarLabel,
+            slotTimes: cfg.slotTimes,
+            closedDays: cfg.closedDays,
+            onSelect(sel) { data.calendarSelections = sel; }
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = 'ご連絡先を入力してください';
+          el.appendChild(title);
+          H.buildFormFields(el, [
+            { name: 'name', label: 'お名前', required: true, placeholder: '山田 太郎' },
+            { name: 'phone', label: '電話番号', type: 'tel', placeholder: '090-1234-5678' },
+            { name: 'email', label: 'メールアドレス', type: 'email', required: true, placeholder: 'example@email.com' },
+            { name: 'contactMethod', label: '希望連絡方法', type: 'select', options: ['選択してください', 'メール', '電話', 'LINE', 'どの方法でも可'] },
+            { name: 'secretContact', label: '相手にバレない連絡方法', type: 'select', options: ['選択してください', 'メール', '電話', 'LINE', 'どの方法でも可'] },
+            { name: 'notes', label: '自由記入欄', type: 'textarea', placeholder: 'ご質問やご要望があればお書きください' },
+          ], data);
+        },
+        collect(data) {},
+        validate(data) {
+          if (!data.name) { alert('お名前を入力してください'); return false; }
+          if (!data.email) { alert('メールアドレスを入力してください'); return false; }
+          return true;
+        },
+        nextLabel: '確認画面へ'
+      },
+      {
+        render(el, data) {
+          const calStr = (data.calendarSelections || []).map(s => `${s.date} ${s.time}`).join(', ') || '未選択';
+          data._calendarDisplay = calStr;
+          H.buildConfirmScreen(el, data, {
+            method: '相談方法', content: '相談内容', timing: 'プロポーズ予定時期',
+            area: '希望エリア', preferredDay: '希望曜日/時間帯',
+            _calendarDisplay: '相談希望日', name: 'お名前', phone: '電話番号',
+            email: 'メールアドレス', contactMethod: '連絡方法',
+            secretContact: 'バレない連絡方法', notes: '備考'
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '送信する'
+      },
+      {
+        noBack: true,
+        render(el) {
+          H.buildCompleteScreen(el, cfg);
+        },
+        collect() {},
+        validate() { return true; },
+      }
+    ];
+
+    new StepForm('#propose-step-form', { steps, productName: cfg.name, config: cfg });
+  });
+  </script>
 </body>
 </html>
+

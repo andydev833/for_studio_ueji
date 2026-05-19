@@ -358,75 +358,13 @@
     </div>
   </section>
 
-  <!-- ===== Form Modal ===== -->
+  <!-- ===== Step Form Modal ===== -->
   <div class="form-overlay" id="shichi-form">
-    <div class="form-modal">
+    <div class="form-modal" style="max-width:640px">
       <button class="form-close" onclick="closeForm('shichi-form')">✕</button>
-      <h3 class="form-title">七五三撮影のご相談</h3>
-      <p class="body-text" style="margin-bottom:var(--space-md)">空き日程の確認や撮影内容のご相談を承ります。</p>
-      <form id="shichi-inquiry-form" onsubmit="event.preventDefault();">
-        <div class="form-group">
-          <label class="form-label">お名前 <span class="required">※必須</span></label>
-          <input type="text" class="form-input" placeholder="山田 太郎" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">メールアドレス <span class="required">※必須</span></label>
-          <input type="email" class="form-input" placeholder="example@email.com" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">電話番号</label>
-          <input type="tel" class="form-input" placeholder="090-1234-5678">
-        </div>
-        <div class="form-group">
-          <label class="form-label">お子様の年齢</label>
-          <select class="form-select">
-            <option value="">選択してください</option>
-            <option>3歳（数え年）</option>
-            <option>3歳（満年齢）</option>
-            <option>5歳（数え年）</option>
-            <option>5歳（満年齢）</option>
-            <option>7歳（数え年）</option>
-            <option>7歳（満年齢）</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">希望撮影時期</label>
-          <input type="text" class="form-input" placeholder="例：2025年10月〜11月頃">
-        </div>
-        <div class="form-group">
-          <label class="form-label">希望撮影内容</label>
-          <div class="form-checkbox-group">
-            <label class="form-checkbox-label"><input type="checkbox"><span>スタジオ撮影</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>ロケーション撮影</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>衣装レンタル</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>ヘアメイク</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">家族写真</label>
-          <div class="form-checkbox-group">
-            <label class="form-checkbox-label"><input type="checkbox"><span>家族写真希望</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>兄弟撮影希望</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>祖父母参加</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>三世代撮影</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">アルバム・フォトギフト</label>
-          <div class="form-checkbox-group">
-            <label class="form-checkbox-label"><input type="checkbox"><span>アルバム希望</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>フォトフレーム</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>祖父母用ギフト</span></label>
-            <label class="form-checkbox-label"><input type="checkbox"><span>年賀状用写真</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">自由記入欄</label>
-          <textarea class="form-textarea" placeholder="お子様の様子やご質問があればお書きください"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary form-submit" data-track-cta="form-shichi-submit">相談内容を送信する</button>
-        <p class="form-note">※ 送信後、2営業日以内にご連絡いたします。</p>
-      </form>
+      <h3 class="form-title">七五三撮影のご相談・ご予約</h3>
+      <p class="body-text" style="margin-bottom:var(--space-md);text-align:center">空き日程の確認や撮影内容のご相談を承ります。</p>
+      <div id="shichi-step-form"></div>
     </div>
   </div>
 
@@ -466,6 +404,196 @@
   </div>
 
   <script src="/js/common.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/calendar.js"></script>
+  <script src="/js/step-form.js"></script>
   <script src="/js/tracking.js" type="module"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const cfg = StudioConfig.shichigosan;
+    const H = StepFormHelpers;
+
+    const steps = [
+      {
+        render(el, data) {
+          H.buildSelectionGrid(el, {
+            title: '希望メニューを選択してください',
+            items: [
+              { icon: '👘', label: 'スタジオ撮影', value: 'studio' },
+              { icon: '🍂', label: 'ロケーション撮影', value: 'location' },
+              { icon: '👗', label: '衣装レンタル付き撮影', value: 'costume' },
+              { icon: '💄', label: 'ヘアメイク付き撮影', value: 'hairmake' },
+              { icon: '🤔', label: 'まだ決まっていない（相談したい）', value: 'undecided' },
+            ],
+            fieldName: 'menu', formData: data
+          });
+        },
+        collect(data) {},
+        validate(data) { if (!data.menu) { alert('メニューを選択してください'); return false; } return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = 'お子様の情報';
+          el.appendChild(title);
+          H.buildFormFields(el, [
+            { name: 'childName', label: 'お子様のお名前', placeholder: '例：太郎', required: true },
+            { name: 'childAge', label: 'お子様の年齢', type: 'select', options: ['選択してください', '3歳（数え年）', '3歳（満年齢）', '5歳（数え年）', '5歳（満年齢）', '7歳（数え年）', '7歳（満年齢）'], required: true },
+            { name: 'childGender', label: '性別', type: 'select', options: ['選択してください', '男の子', '女の子'] },
+            { name: 'childNotes', label: '撮影時の注意点', type: 'textarea', placeholder: '人見知り、場所見知り等あればお知らせください' },
+          ], data);
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          H.buildSelectionGrid(el, {
+            title: '家族参加について（複数可）',
+            items: [
+              { icon: '👨‍👩‍👧', label: '家族写真を撮りたい', value: 'family' },
+              { icon: '👦👧', label: '兄弟姉妹も一緒に撮影', value: 'siblings' },
+              { icon: '👴👵', label: '祖父母も参加', value: 'grandparents' },
+              { icon: '👨‍👩‍👧‍👦', label: '三世代撮影', value: 'three_gen' },
+              { icon: '👤', label: 'お子様のみ', value: 'child_only' },
+            ],
+            fieldName: 'family', formData: data, multiple: true
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '日程を選ぶ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = '撮影候補日を選択（第3希望まで）';
+          el.appendChild(title);
+          const calDiv = document.createElement('div');
+          el.appendChild(calDiv);
+          new StudioCalendar(calDiv, {
+            mode: 'shooting', label: '撮影候補日を選ぶ',
+            slotTimes: cfg.slotTimes, closedDays: cfg.closedDays,
+            maxPreferences: 3,
+            onSelect(sel) { data.calendarSelections = sel; }
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          H.buildSelectionGrid(el, {
+            title: 'オプション（任意・複数可）',
+            items: [
+              { icon: '📖', label: 'アルバム', value: 'album' },
+              { icon: '🖼️', label: 'フォトフレーム', value: 'frame' },
+              { icon: '📖', label: '祖父母用ミニアルバム', value: 'mini_album' },
+              { icon: '📬', label: '祖父母宅への写真配送', value: 'delivery' },
+              { icon: '💌', label: 'メッセージカード付き写真', value: 'message_card' },
+              { icon: '🎍', label: '年賀状用写真データ', value: 'newyear' },
+            ],
+            fieldName: 'options', formData: data, multiple: true
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = 'ご連絡先を入力してください';
+          el.appendChild(title);
+          H.buildFormFields(el, [
+            { name: 'parentName', label: '保護者名', required: true, placeholder: '山田 花子' },
+            { name: 'phone', label: '電話番号', type: 'tel', placeholder: '090-1234-5678' },
+            { name: 'email', label: 'メールアドレス', type: 'email', required: true, placeholder: 'example@email.com' },
+            { name: 'notes', label: '自由記入欄', type: 'textarea', placeholder: 'ご質問やご要望があればお書きください' },
+          ], data);
+        },
+        collect(data) {},
+        validate(data) {
+          if (!data.parentName) { alert('保護者名を入力してください'); return false; }
+          if (!data.email) { alert('メールアドレスを入力してください'); return false; }
+          return true;
+        },
+        nextLabel: '次へ'
+      },
+      {
+        render(el, data) {
+          const title = document.createElement('h3');
+          title.className = 'sf-step-title';
+          title.textContent = '予約方法の選択';
+          el.appendChild(title);
+          const mock = document.createElement('div');
+          mock.className = 'payment-mock';
+          mock.innerHTML = `
+            <p class="payment-label">予約金</p>
+            <p class="payment-amount">¥${cfg.depositAmount.toLocaleString()}<span style="font-size:var(--fs-small)">(税込)</span></p>
+          `;
+          el.appendChild(mock);
+          H.buildSelectionGrid(el, {
+            items: [
+              { icon: '💳', label: '予約金を支払って予約する', value: 'deposit' },
+              { icon: '📩', label: 'まずは仮予約する（予約金は後日）', value: 'tentative' },
+            ],
+            fieldName: 'paymentMethod', formData: data
+          });
+          const note = document.createElement('p');
+          note.className = 'body-text';
+          note.style.fontSize = 'var(--fs-caption)';
+          note.style.color = 'var(--color-text-muted)';
+          note.style.marginTop = 'var(--space-sm)';
+          note.textContent = '※ 仮予約の場合、3日以内に予約金のお支払いが必要です。';
+          el.appendChild(note);
+        },
+        collect(data) {},
+        validate(data) {
+          if (!data.paymentMethod) { alert('予約方法を選択してください'); return false; }
+          return true;
+        },
+        nextLabel: '確認画面へ'
+      },
+      {
+        render(el, data) {
+          const calStr = (data.calendarSelections || []).map(s => {
+            const pref = ['第1希望', '第2希望', '第3希望'][s.preference - 1] || '';
+            return `${pref}: ${s.date} ${s.time}`;
+          }).join(' / ') || '未選択';
+          data._calendarDisplay = calStr;
+          data._paymentDisplay = data.paymentMethod === 'deposit' ? '予約金支払い' : '仮予約';
+          H.buildConfirmScreen(el, data, {
+            menu: '希望メニュー', childName: 'お子様名', childAge: '年齢', childGender: '性別',
+            family: '家族参加', _calendarDisplay: '撮影候補日', options: 'オプション',
+            parentName: '保護者名', phone: '電話番号', email: 'メールアドレス',
+            _paymentDisplay: '予約方法', notes: '備考'
+          });
+        },
+        collect(data) {},
+        validate(data) { return true; },
+        nextLabel: '送信する'
+      },
+      {
+        noBack: true,
+        render(el, data) {
+          const msg = data.paymentMethod === 'deposit' ? cfg.completeMessagePaid : cfg.completeMessage;
+          H.buildCompleteScreen(el, { ...cfg, completeMessage: msg });
+        },
+        collect() {},
+        validate() { return true; },
+      }
+    ];
+
+    new StepForm('#shichi-step-form', { steps, productName: cfg.name, config: cfg });
+  });
+  </script>
 </body>
 </html>
+
