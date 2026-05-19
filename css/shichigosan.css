@@ -1,0 +1,225 @@
+/* ===========================
+   Shichigosan LP Styles
+   =========================== */
+
+/* --- Shichi Hero --- */
+.shichi-hero {
+  background: linear-gradient(135deg, var(--shichi-pink-light) 0%, var(--color-white) 50%, var(--shichi-green-light) 100%);
+  position: relative;
+}
+
+.shichi-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 25% 35%, rgba(240, 214, 214, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 75% 65%, rgba(200, 217, 192, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.shichi-hero .hero-copy {
+  color: var(--color-deep-brown);
+}
+
+/* --- Shichi Section Overrides --- */
+.shichi-page .section-label {
+  color: var(--shichi-orange);
+}
+
+.shichi-page .section-label::before {
+  background: var(--shichi-orange);
+}
+
+.shichi-page .btn-primary {
+  background: linear-gradient(135deg, var(--shichi-orange), #D4956A);
+}
+
+.shichi-page .btn-primary:hover {
+  background: linear-gradient(135deg, #ECBF9A, var(--shichi-orange));
+}
+
+.shichi-page .btn-secondary {
+  color: var(--shichi-orange);
+  border-color: var(--shichi-orange);
+}
+
+.shichi-page .btn-secondary:hover {
+  background: var(--shichi-orange);
+  color: var(--color-pure-white);
+}
+
+/* --- Meaning Section --- */
+.meaning-section {
+  background: linear-gradient(135deg, var(--shichi-pink-light), var(--color-white));
+}
+
+.meaning-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.meaning-card {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--color-pure-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.meaning-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.meaning-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.meaning-card h4 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h4);
+  margin-bottom: var(--space-xs);
+}
+
+.meaning-card p {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+/* --- Grandparent Section --- */
+.grandparent-section {
+  background: linear-gradient(135deg, var(--color-cream), var(--shichi-green-light));
+}
+
+.grandparent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.grandparent-card {
+  text-align: center;
+  padding: var(--space-md);
+  background: var(--color-pure-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.grandparent-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.grandparent-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+}
+
+.grandparent-card h4 {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  margin-bottom: 4px;
+}
+
+.grandparent-card p {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+/* --- Feature List --- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: var(--space-md);
+  background: var(--color-pure-white);
+  border-radius: var(--radius-md);
+  border: var(--border-light);
+  transition: all var(--transition-base);
+}
+
+.feature-item:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--shichi-orange);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.feature-item span {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+}
+
+/* --- Shichi CTA Section --- */
+.shichi-final-cta {
+  background: linear-gradient(135deg, var(--shichi-pink-light), var(--color-cream), var(--shichi-green-light));
+  text-align: center;
+}
+
+/* --- Shichi FAQ --- */
+.shichi-page .faq-question::before {
+  background: var(--shichi-orange);
+}
+
+.shichi-page .faq-question::after {
+  color: var(--shichi-orange);
+}
+
+/* --- Shichi Plans --- */
+.shichi-page .plan-card--featured {
+  border-color: var(--shichi-orange);
+}
+
+.shichi-page .plan-card--featured::before {
+  background: var(--shichi-orange);
+}
+
+.shichi-page .plan-price {
+  color: var(--shichi-orange);
+}
+
+/* --- Shichi Flow --- */
+.shichi-page .flow-number {
+  background: linear-gradient(135deg, var(--shichi-orange), #D4956A);
+}
+
+/* -- Shichi Fixed CTA --- */
+.shichi-page .fixed-cta .btn-primary {
+  background: linear-gradient(135deg, var(--shichi-orange), #D4956A);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .meaning-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grandparent-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,348 @@
+/* ===========================
+   Strategy Page Styles
+   =========================== */
+
+/* --- Strategy Hero --- */
+.strategy-hero {
+  background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-white) 50%, var(--color-beige) 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(60px + var(--space-2xl)) var(--space-md) var(--space-2xl);
+  position: relative;
+}
+
+.strategy-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(184, 150, 62, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(196, 173, 143, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.strategy-hero .hero-content {
+  max-width: 800px;
+}
+
+.strategy-hero .hero-copy {
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  color: var(--color-deep-brown);
+  margin-bottom: var(--space-md);
+}
+
+.strategy-hero .hero-sub {
+  font-size: var(--fs-body);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+}
+
+.strategy-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+  color: var(--color-pure-white);
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-medium);
+  padding: 6px 20px;
+  border-radius: var(--radius-full);
+  letter-spacing: var(--ls-wide);
+  margin-bottom: var(--space-md);
+}
+
+/* --- Section Numbering --- */
+.section-number {
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  font-weight: var(--fw-light);
+  color: rgba(184, 150, 62, 0.15);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+/* --- Strength Cards --- */
+.strength-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.strength-card {
+  background: var(--color-pure-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: var(--border-light);
+  transition: all var(--transition-base);
+}
+
+.strength-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-gold-light);
+}
+
+.strength-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
+}
+
+.strength-card h4 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h4);
+  margin-bottom: var(--space-xs);
+}
+
+.strength-card p {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+/* --- Product Cards --- */
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.product-card {
+  background: var(--color-pure-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  border: var(--border-light);
+  text-align: center;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.product-card--propose::before {
+  background: linear-gradient(90deg, var(--propose-gold), var(--propose-accent));
+}
+
+.product-card--shichi::before {
+  background: linear-gradient(90deg, var(--shichi-pink), var(--shichi-orange));
+}
+
+.product-card--profile::before {
+  background: linear-gradient(90deg, var(--profile-navy), var(--profile-blue));
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-card-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-pure-white);
+  font-family: var(--font-serif);
+  font-weight: var(--fw-bold);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-sm);
+}
+
+.product-card h3 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  margin-bottom: var(--space-sm);
+}
+
+.product-card p {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-normal);
+}
+
+.product-card .btn {
+  margin-top: var(--space-md);
+  font-size: var(--fs-small);
+  padding: 10px 24px;
+  min-width: auto;
+}
+
+/* --- Step Cards --- */
+.step-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.step-card {
+  background: var(--color-pure-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  border: var(--border-light);
+  position: relative;
+}
+
+.step-card-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  color: var(--color-gold);
+  font-family: var(--font-serif);
+  font-weight: var(--fw-bold);
+  font-size: 0.8rem;
+  margin-bottom: var(--space-xs);
+}
+
+.step-card h5 {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  margin-bottom: 4px;
+}
+
+.step-card p {
+  font-size: var(--fs-caption);
+  color: var(--color-text-muted);
+}
+
+/* --- Phase Timeline --- */
+.phase-timeline {
+  max-width: var(--max-width-narrow);
+  margin: var(--space-lg) auto 0;
+}
+
+.phase-item {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+  position: relative;
+}
+
+.phase-item::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 48px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-gold-light), var(--color-beige));
+}
+
+.phase-item:last-child::before {
+  display: none;
+}
+
+.phase-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-dark));
+  color: var(--color-pure-white);
+  font-family: var(--font-serif);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-small);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.phase-content h4 {
+  font-weight: var(--fw-medium);
+  margin-bottom: 4px;
+}
+
+.phase-content p {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+/* --- Vision Section --- */
+.vision-section {
+  background: linear-gradient(135deg, var(--color-deep-brown), var(--propose-bg-dark));
+  color: var(--color-text-on-dark);
+  text-align: center;
+}
+
+.vision-section .heading-2 {
+  color: var(--color-gold-light);
+}
+
+.vision-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.vision-item {
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(184, 150, 62, 0.2);
+  transition: all var(--transition-base);
+}
+
+.vision-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(184, 150, 62, 0.4);
+}
+
+.vision-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-sm);
+}
+
+.vision-item h4 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h4);
+  color: var(--color-gold-light);
+  margin-bottom: var(--space-sm);
+}
+
+.vision-item p {
+  font-size: var(--fs-small);
+  color: var(--color-light-brown);
+  line-height: var(--lh-normal);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .product-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .vision-items {
+    grid-template-columns: 1fr;
+  }
+
+  .step-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .section-number {
+    font-size: 3rem;
+  }
+}

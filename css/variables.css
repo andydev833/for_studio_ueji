@@ -1,0 +1,110 @@
+/* ===========================
+   Design Tokens - Studio Ueji
+   =========================== */
+:root {
+  /* --- Base Colors --- */
+  --color-white: #FDFBF7;
+  --color-cream: #F5F0E8;
+  --color-beige: #E8DFD0;
+  --color-light-brown: #C4AD8F;
+  --color-pure-white: #FFFFFF;
+
+  /* --- Accent Colors --- */
+  --color-gold: #B8963E;
+  --color-gold-light: #D4B96A;
+  --color-gold-dark: #8F7230;
+  --color-pink: #E8C4C4;
+  --color-pink-light: #F2DCDC;
+  --color-deep-brown: #5C4033;
+
+  /* --- Text Colors --- */
+  --color-text-primary: #3A2E28;
+  --color-text-secondary: #6B5B4F;
+  --color-text-muted: #9B8B7F;
+  --color-text-light: #B8A99D;
+  --color-text-on-dark: #F5F0E8;
+
+  /* --- Propose LP Colors --- */
+  --propose-bg-dark: #2C2420;
+  --propose-bg-medium: #3A302A;
+  --propose-gold: #C9A84C;
+  --propose-gold-light: #E0C87A;
+  --propose-accent: #D4A574;
+
+  /* --- Shichigosan LP Colors --- */
+  --shichi-pink: #F0D6D6;
+  --shichi-pink-light: #F8ECEC;
+  --shichi-green: #C8D9C0;
+  --shichi-green-light: #E4EDE0;
+  --shichi-orange: #E8B88A;
+
+  /* --- Profile LP Colors --- */
+  --profile-navy: #2C3E50;
+  --profile-navy-light: #34495E;
+  --profile-blue: #5B8BA0;
+  --profile-blue-light: #A4C4D4;
+  --profile-gray: #ECF0F1;
+
+  /* --- Typography --- */
+  --font-serif: 'Noto Serif JP', 'Yu Mincho', '游明朝', serif;
+  --font-sans: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+
+  --fs-hero: clamp(2rem, 5vw, 3.5rem);
+  --fs-h1: clamp(1.75rem, 4vw, 2.75rem);
+  --fs-h2: clamp(1.5rem, 3.5vw, 2.25rem);
+  --fs-h3: clamp(1.25rem, 3vw, 1.75rem);
+  --fs-h4: clamp(1.1rem, 2.5vw, 1.35rem);
+  --fs-body: clamp(0.95rem, 2vw, 1.05rem);
+  --fs-small: clamp(0.8rem, 1.5vw, 0.9rem);
+  --fs-caption: 0.8rem;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  --lh-tight: 1.4;
+  --lh-normal: 1.8;
+  --lh-loose: 2.0;
+
+  --ls-tight: 0.02em;
+  --ls-normal: 0.05em;
+  --ls-wide: 0.1em;
+  --ls-extra-wide: 0.15em;
+
+  /* --- Spacing --- */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* --- Layout --- */
+  --max-width: 1100px;
+  --max-width-narrow: 800px;
+  --max-width-wide: 1300px;
+  --section-padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+
+  /* --- Borders & Radius --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --border-light: 1px solid rgba(196, 173, 143, 0.3);
+  --border-gold: 1px solid var(--color-gold);
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 2px 8px rgba(58, 46, 40, 0.06);
+  --shadow-md: 0 4px 20px rgba(58, 46, 40, 0.08);
+  --shadow-lg: 0 8px 40px rgba(58, 46, 40, 0.10);
+  --shadow-xl: 0 12px 60px rgba(58, 46, 40, 0.12);
+
+  /* --- Transitions --- */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

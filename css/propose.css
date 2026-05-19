@@ -1,0 +1,261 @@
+/* ===========================
+   Propose Premium LP Styles
+   =========================== */
+
+/* --- Propose Hero --- */
+.propose-hero {
+  background: linear-gradient(135deg, var(--propose-bg-dark) 0%, #1E1A17 50%, var(--propose-bg-medium) 100%);
+  color: var(--color-text-on-dark);
+  min-height: 100vh;
+  position: relative;
+}
+
+.propose-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(201, 168, 76, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(212, 165, 116, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.propose-hero .hero-copy {
+  color: var(--propose-gold-light);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.propose-hero .hero-sub {
+  color: var(--color-light-brown);
+}
+
+.propose-hero .btn-primary {
+  background: linear-gradient(135deg, var(--propose-gold), var(--color-gold-dark));
+}
+
+/* --- Propose overrides --- */
+.propose-page .site-header {
+  background: rgba(44, 36, 32, 0.95);
+  border-bottom-color: rgba(201, 168, 76, 0.15);
+}
+
+.propose-page .header-logo {
+  color: var(--propose-gold-light);
+}
+
+.propose-page .header-nav a {
+  color: var(--color-light-brown);
+}
+
+.propose-page .header-nav a:hover,
+.propose-page .header-nav a.active {
+  color: var(--propose-gold-light);
+}
+
+.propose-page .section-label {
+  color: var(--propose-gold);
+}
+
+.propose-page .section-label::before {
+  background: var(--propose-gold);
+}
+
+/* --- Propose Sections --- */
+.propose-section--dark {
+  background: var(--propose-bg-dark);
+  color: var(--color-text-on-dark);
+}
+
+.propose-section--dark .heading-2 {
+  color: var(--propose-gold-light);
+}
+
+.propose-section--dark .body-text {
+  color: var(--color-light-brown);
+}
+
+.propose-section--dark .worry-item {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(201, 168, 76, 0.2);
+  color: var(--color-text-on-dark);
+}
+
+.propose-section--dark .worry-item:hover {
+  border-color: rgba(201, 168, 76, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* --- Consultation Items --- */
+.consult-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.consult-item {
+  text-align: center;
+  padding: var(--space-lg);
+  background: var(--color-pure-white);
+  border-radius: var(--radius-lg);
+  border: var(--border-light);
+  transition: all var(--transition-base);
+}
+
+.consult-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-gold-light);
+}
+
+.consult-icon {
+  font-size: 2.2rem;
+  margin-bottom: var(--space-sm);
+}
+
+.consult-item h4 {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  margin-bottom: var(--space-xs);
+}
+
+.consult-item p {
+  font-size: var(--fs-small);
+  color: var(--color-text-secondary);
+}
+
+/* --- Why Section --- */
+.why-section {
+  background: linear-gradient(135deg, var(--color-cream), var(--color-white));
+}
+
+.why-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  margin-top: var(--space-lg);
+}
+
+.why-text p {
+  font-size: var(--fs-body);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-loose);
+  margin-bottom: var(--space-md);
+}
+
+.why-image {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, var(--color-beige), var(--color-light-brown));
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--color-pure-white);
+}
+
+/* --- Propose Plans --- */
+.propose-plan-card {
+  border-top: 3px solid var(--propose-gold);
+}
+
+.propose-plan-card .plan-price {
+  color: var(--propose-gold);
+}
+
+/* --- Propose CTA --- */
+.propose-final-cta {
+  background: linear-gradient(135deg, var(--propose-bg-dark), var(--propose-bg-medium));
+  color: var(--color-text-on-dark);
+  text-align: center;
+}
+
+.propose-final-cta .heading-2 {
+  color: var(--propose-gold-light);
+}
+
+.propose-final-cta .body-text {
+  color: var(--color-light-brown);
+}
+
+/* --- Dark FAQ --- */
+.propose-section--dark .faq-item {
+  border-bottom-color: rgba(201, 168, 76, 0.2);
+}
+
+.propose-section--dark .faq-question {
+  color: var(--color-text-on-dark);
+}
+
+.propose-section--dark .faq-question::before {
+  background: var(--propose-gold);
+}
+
+.propose-section--dark .faq-question::after {
+  color: var(--propose-gold);
+}
+
+.propose-section--dark .faq-answer p {
+  color: var(--color-light-brown);
+}
+
+.propose-section--dark .styled-table thead th {
+  background: var(--propose-gold);
+}
+
+.propose-section--dark .styled-table tbody td {
+  border-bottom-color: rgba(201, 168, 76, 0.15);
+  color: var(--color-text-on-dark);
+}
+
+.propose-section--dark .styled-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.propose-section--dark .styled-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.propose-section--dark .flow-step::before {
+  background: rgba(201, 168, 76, 0.3);
+}
+
+.propose-section--dark .flow-number {
+  background: linear-gradient(135deg, var(--propose-gold), var(--color-gold-dark));
+}
+
+.propose-section--dark .flow-content h4 {
+  color: var(--propose-gold-light);
+}
+
+.propose-section--dark .flow-content p {
+  color: var(--color-light-brown);
+}
+
+/* --- Propose Fixed CTA --- */
+.propose-page .fixed-cta {
+  background: rgba(44, 36, 32, 0.97);
+  border-top-color: rgba(201, 168, 76, 0.15);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .why-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .consult-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .consult-grid {
+    grid-template-columns: 1fr;
+  }
+}
